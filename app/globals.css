@@ -1,0 +1,328 @@
+:root {
+  --ink: #070b26;
+  --deep: #0c1236;
+  --line: #1e275c;
+  --blue: #3d8bff;
+  --cyan: #43d3ff;
+  --violet: #8f6dff;
+  --text: #e4eaff;
+  --muted: #93a0cf;
+  --gutter: clamp(16px, 5vw, 64px);
+  --max: 1160px;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .wordmark span {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; padding: 0; }
+img { display: block; }
+
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ---------- Buttons & links ---------- */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.8em 1.4em;
+  border: 0;
+  border-radius: 10px;
+  background: var(--blue);
+  color: #fff;
+  font: 600 1rem var(--font-body), sans-serif;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.button:hover { background: #5a9dff; }
+.button-small { padding: 0.55em 1.05em; font-size: 0.9375rem; }
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  color: var(--text);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+  transition: text-decoration-color 0.15s;
+}
+.text-link:hover { text-decoration-color: var(--cyan); }
+
+/* ---------- Header ---------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 14px var(--gutter);
+  background: rgb(7 11 38 / 0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.wordmark { display: flex; align-items: center; gap: 12px; margin-right: auto; }
+.wordmark img { border-radius: 50%; }
+.wordmark span { font-size: 1.05rem; }
+.site-header nav { display: flex; gap: 28px; }
+.site-header nav a { color: var(--muted); font-size: 0.9375rem; }
+.site-header nav a:hover { color: var(--text); }
+
+/* ---------- Hero ---------- */
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 48px;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(48px, 9vw, 112px) var(--gutter) clamp(64px, 10vw, 128px);
+}
+.hero h1 {
+  font-size: clamp(2rem, 4.6vw, 3.6rem);
+  max-width: 12ch;
+  margin-bottom: 28px;
+}
+.hero-copy p { max-width: 46ch; color: var(--muted); font-size: 1.1875rem; margin-bottom: 36px; }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 28px; }
+
+.hero-art { position: relative; justify-self: end; width: min(100%, 420px); }
+.hero-logo {
+  position: relative;
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 0 80px rgb(61 139 255 / 0.28), 0 0 160px rgb(143 109 255 / 0.18);
+}
+
+/* The one moment of motion: pixels break away from the logo on load. */
+.pixels {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 72%;
+  width: 42%;
+}
+.pixels span {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--s);
+  height: var(--s);
+  border-radius: 2px;
+  background: var(--c);
+  opacity: var(--o);
+  box-shadow: 0 0 10px var(--c);
+  animation: break-away 1.1s var(--d) cubic-bezier(0.16, 0.8, 0.3, 1) both;
+}
+@keyframes break-away {
+  from { transform: translateX(140px) scale(0.3); opacity: 0; }
+}
+
+/* ---------- Bands ---------- */
+
+.band {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(64px, 9vw, 112px) var(--gutter);
+  border-top: 1px solid var(--line);
+}
+.band h2 { font-size: clamp(1.4rem, 2.6vw, 2rem); margin-bottom: 40px; }
+
+/* Products along a circuit trace, like the lines in the logo */
+.trace {
+  position: relative;
+  display: grid;
+  gap: 44px;
+  padding-left: 40px;
+}
+.trace::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  background: linear-gradient(var(--cyan), var(--blue), var(--violet));
+}
+.trace li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 240px minmax(0, 56ch);
+  gap: 8px 48px;
+  align-items: baseline;
+}
+.trace li::before {
+  content: "";
+  position: absolute;
+  left: -40px;
+  top: 0.35em;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--ink);
+  border: 2px solid var(--cyan);
+  box-shadow: 0 0 10px rgb(67 211 255 / 0.6);
+}
+.trace h3 { font-size: 1.05rem; }
+.trace p { color: var(--muted); }
+
+.about-lead {
+  max-width: 34ch;
+  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+  line-height: 1.45;
+}
+
+/* ---------- Follow ---------- */
+
+.follow-intro { color: var(--muted); max-width: 52ch; margin: -20px 0 40px; }
+
+.follow-featured {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.follow-card {
+  display: grid;
+  gap: 6px;
+  padding: 32px;
+  border-radius: 20px;
+  background: var(--deep);
+  border: 1px solid var(--line);
+  transition: border-color 0.2s, background 0.2s;
+}
+.follow-card svg { margin-bottom: 18px; color: var(--text); }
+.follow-name { font: 1.35rem var(--font-display), sans-serif; }
+.follow-handle { color: var(--cyan); font-weight: 500; }
+.follow-about { color: var(--muted); margin-top: 8px; max-width: 40ch; }
+.follow-cta {
+  margin-top: 20px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--line);
+}
+.follow-card:hover .follow-cta { text-decoration-color: currentColor; }
+.follow-youtube:hover { border-color: #ff4040; }
+.follow-youtube:hover svg { color: #ff4040; }
+.follow-instagram:hover { border-color: #e1306c; }
+.follow-instagram:hover svg { color: #e1306c; }
+
+.follow-more {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.follow-more a {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  height: 100%;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.9375rem;
+  transition: border-color 0.2s;
+}
+.follow-more svg { flex: none; margin-top: 3px; color: var(--text); }
+.follow-more strong { display: block; color: var(--text); font-weight: 600; }
+.follow-more a:hover { border-color: var(--blue); }
+
+/* ---------- Waitlist ---------- */
+
+.waitlist {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: end;
+}
+.waitlist h2 { margin-bottom: 16px; }
+.waitlist p { color: var(--muted); max-width: 46ch; }
+.waitlist-form label { display: block; font-weight: 500; margin-bottom: 8px; }
+.waitlist-row { display: flex; gap: 10px; }
+.waitlist-row input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.8em 1em;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--deep);
+  color: var(--text);
+  font: inherit;
+}
+.waitlist-row input::placeholder { color: #5f6a99; }
+.waitlist-status { min-height: 1.6em; margin-top: 12px; color: var(--cyan) !important; }
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 28px var(--gutter) 40px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+.site-footer ul { display: flex; gap: 6px; }
+.site-footer a { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; }
+.site-footer a:hover { color: var(--text); background: var(--deep); }
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 860px) {
+  .site-header nav { display: none; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-art { order: -1; justify-self: center; width: min(62vw, 280px); }
+  .trace li { grid-template-columns: 1fr; }
+  .follow-featured,
+  .follow-more,
+  .waitlist { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .waitlist-row { flex-direction: column; }
+  .wordmark span { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .pixels span { animation: none; }
+}
